@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Epiisod 视频讲解SOP分析</title>
+<style>
+  :root {
+    --bg: #f8f9fa; --card: #fff; --border: #e5e7eb;
+    --text: #1a1a2e; --muted: #6b7280; --blue: #2563eb;
+    --green: #059669; --amber: #d97706;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding: 24px;
+  }
+  .page {
+    max-width: 1000px; margin: 0 auto; background: var(--card);
+    border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); padding: 56px 64px;
+  }
+  h1 { font-size: 26px; letter-spacing: -.02em; margin-bottom: 4px; }
+  .sub { font-size: 14px; color: var(--muted); margin-bottom: 44px; }
+  h2 {
+    font-size: 19px; margin: 40px 0 16px; padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  h3 { font-size: 16px; margin: 24px 0 10px; }
+
+  blockquote {
+    border-left: 3px solid var(--blue); background: #f8faff;
+    padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;
+    font-size: 15px;
+  }
+
+  /* 核心公式 */
+  .formula-box {
+    background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%);
+    border: 1px solid #dbeafe; border-radius: 12px; padding: 28px 32px;
+    margin: 16px 0; text-align: center;
+  }
+  .formula-box .big { font-size: 22px; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; }
+  .formula-box .sub { font-size: 14px; color: var(--muted); margin: 0; }
+
+  /* 三段式 */
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .three-item {
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; text-align: center;
+  }
+  .three-item .num {
+    width: 32px; height: 32px; background: var(--blue); color: #fff;
+    border-radius: 50%; display: inline-flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 16px; margin-bottom: 10px;
+  }
+  .three-item h4 { font-size: 15px; margin-bottom: 6px; }
+  .three-item p { font-size: 13px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th { background: #f9fafb; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 10px; margin-right: 4px;
+  }
+  .tag-b { background: #dbeafe; color: #1e40af; }
+  .tag-g { background: #d1fae5; color: #065f46; }
+  .tag-a { background: #fef3c7; color: #92400e; }
+
+  .step-list { counter-reset: step; list-style: none; }
+  .step-list li {
+    counter-increment: step; padding: 12px 0 12px 48px;
+    border-bottom: 1px solid #f5f5f5; position: relative;
+  }
+  .step-list li::before {
+    content: counter(step); position: absolute; left: 0; top: 10px;
+    width: 28px; height: 28px; background: var(--blue); color: #fff;
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 13px; font-weight: 700;
+  }
+  .step-list li strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .step-list li span { font-size: 13px; color: var(--muted); }
+
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;
+  }
+  .compare-item { border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .compare-item.bad { background: #fef2f2; }
+  .compare-item.good { background: #ecfdf5; }
+  .compare-item h5 { font-size: 14px; margin-bottom: 4px; }
+  .compare-item p { font-size: 13px; color: var(--muted); }
+
+  .highlight { background: #fef3c7; padding: 1px 6px; border-radius: 3px; font-weight: 600; }
+</style>
+</head>
+<body>
+<a href="/" style="position:fixed;top:12px;left:12px;z-index:999;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:6px 14px;font-size:13px;color:#2563eb;text-decoration:none;font-family:-apple-system,PingFang SC,Microsoft YaHei,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,.08);">← 返回</a>
+<div class="page">
+
+<h1>Jason Epiisod 视频讲解 SOP 分析</h1>
+<p class="sub">对标 CEO 标杆视频 · 提炼可复制的讲解方法论 · 2026.5.29</p>
+
+<!-- ===== 一、视频概览 ===== -->
+<h2>一、视频概览</h2>
+<table>
+  <tr><th style="width:120px">项目</th><th>内容</th></tr>
+  <tr><td>拍摄对象</td><td>Epiisod 学生公寓 Studio 房型（麦考瑞大学附近）</td></tr>
+  <tr><td>视频时长</td><td>约 6 分钟</td></tr>
+  <tr><td>拍摄方式</td><td>手机手持，第一人称，边走边讲</td></tr>
+  <tr><td>身份设定</td><td>真实住客——"我住了两个晚上"</td></tr>
+  <tr><td>核心效果</td><td>看完想住进去。不是介绍房子，是讲生活体验。</td></tr>
+</table>
+
+<!-- ===== 二、核心方法论 ===== -->
+<h2>二、核心方法论：一条公式 + 一个动线</h2>
+
+<div class="formula-box">
+  <div class="big">每个细节 = 这是什么 → 什么体验 → 为什么好（+ 对比）</div>
+  <div class="sub">不是念参数。是讲感受。参数放在字幕里。</div>
+</div>
+
+<div class="three-col">
+  <div class="three-item">
+    <div class="num">1</div>
+    <h4>这是什么</h4>
+    <p>一句话点明正在讲什么<br>"这个是床头的充电口"</p>
+  </div>
+  <div class="three-item">
+    <div class="num">2</div>
+    <h4>什么体验</h4>
+    <p>第一人称真实感受<br>"晚上关了大灯躺床上用这个"</p>
+  </div>
+  <div class="three-item">
+    <div class="num">3</div>
+    <h4>为什么好</h4>
+    <p>用对比制造说服力<br>"有的公寓充电口在桌子那边"</p>
+  </div>
+</div>
+
+<!-- ===== 三、动线 ===== -->
+<h2>三、空间动线：按入住体验流走，不按户型图走</h2>
+
+<p>Jason 没有从"进门右手边是XX"开始讲。他从<strong>学生最在意的体验</strong>开始，按自然的生活流展开：</p>
+
+<ol class="step-list">
+  <li>
+    <strong>窗外景色 — 制造向往</strong>
+    <span>"校园景色 + 城市景色，可以看到悉尼市中心的塔"<br>策略：视频一开头就把最好的东西亮出来。第一印象决定学生会不会继续看。</span>
+  </li>
+  <li>
+    <strong>床 + 床垫 — 最核心体验</strong>
+    <span>"床垫特别舒服，比我住过的大多数五星级酒店还舒服，这两天睡眠非常好"<br>策略：睡眠是学生公寓第一刚需。把最好的评价留给最核心的体验。</span>
+  </li>
+  <li>
+    <strong>床头细节 — 灯光、充电、置物</strong>
+    <span>床头灯不过眼、USB+插座一体、凹槽置物台手机不会掉、床头一键关全屋灯<br>策略：讲"躺下之后的体验"，而不是"床头柜长什么样"。</span>
+  </li>
+  <li>
+    <strong>窗帘系统 — 遮光 + 通风</strong>
+    <span>纱帘 + 遮光帘双层系统，"我喜欢空气流通，开着窗把遮光帘拉下来"<br>策略：个人的小习惯让描述更真实。</span>
+  </li>
+  <li>
+    <strong>书桌 + 学习区 — 代入身体</strong>
+    <span>"我身高1米78，体重190斤，你看我坐进去非常宽敞"<br>策略：不说尺寸，用自己的身体当尺子。观众自动对比自己。</span>
+  </li>
+  <li>
+    <strong>电视 + 娱乐 — 展示使用场景</strong>
+    <span>"你看我躺在床上这么看电视，非常舒服"<br>策略：不说"有电视"，说"怎么用这个电视"。</span>
+  </li>
+  <li>
+    <strong>地面材质 — 讲为什么分区</strong>
+    <span>床下地毯、厨房地板、卫浴区地毯——"光脚踩到这个地方会舒服，尤其是冬天不凉"<br>策略：讲材质分区背后的体验逻辑，而不是罗列材质名称。</span>
+  </li>
+  <li>
+    <strong>用餐区 — 社交场景</strong>
+    <span>小桌子 + 两个凳子，"朋友来可以住两晚"，每两周可以有一次访客过夜<br>策略：不只是家具，是"有朋友来是什么体验"。</span>
+  </li>
+  <li>
+    <strong>厨房 — 做饭刚需</strong>
+    <span>冰箱、微波炉、灶台、"适合中国学生做饭"<br>策略：用目标客群的刚需来评价。</span>
+  </li>
+  <li>
+    <strong>衣柜 — 对比同类产品</strong>
+    <span>"有的柜子没隔层，空间一样大但不好用。它做了很多隔层，可以分类放"<br>策略：不讲容量数字，讲"放东西方不方便"。</span>
+  </li>
+  <li>
+    <strong>玄关 — 讲"顺手"</strong>
+    <span>两个挂钩挂外套、钥匙盘放门卡钥匙、"特别顺手"<br>策略：讲日常动线中的便利感。</span>
+  </li>
+  <li>
+    <strong>空调 + 新风 — 中国家长视角</strong>
+    <span>独立空调（非中央）→ 可控、卫生；新风系统 → 中国家长特别在意；窗户能打开 → "很多高层打不开，这个加了成本"<br>策略：每个对比都指向一个特定人群的焦虑。</span>
+  </li>
+  <li>
+    <strong>床头上方 + 镜子 — 收尾亮点</strong>
+    <span>可以放书、合影、照片；镜子让空间显得更大<br>策略：把"加分项"留到最后，制造结尾记忆点。</span>
+  </li>
+</ol>
+
+<!-- ===== 四、对比手法 ===== -->
+<h2>四、Jason 最核心的武器：对比</h2>
+
+<p>全片 6 分钟，至少用了 <strong>8 次对比</strong>。没有对比就没有伤害，没有伤害就没有购买决策。</p>
+
+<table>
+  <tr><th>#</th><th>他说的</th><th style="width:200px">对比的是什么</th><th>效果</th></tr>
+  <tr><td>1</td><td>"床垫比大多数五星级酒店还舒服"</td><td>五星级酒店床垫</td><td>把学生公寓的床垫拉到五星酒店之上</td></tr>
+  <tr><td>2</td><td>"独立空调，不是中央空调"</td><td>中央空调（不卫生、不可控）</td><td>触发 2020 后的卫生焦虑</td></tr>
+  <tr><td>3</td><td>"窗户能打开，很多高层为了省钱一整块密封玻璃"</td><td>密封高层玻璃</td><td>让人觉得这个开发商"不省钱，加了成本"</td></tr>
+  <tr><td>4</td><td>"衣柜有隔层，有的柜子没有隔层空间一样大但不好用"</td><td>通体无隔层衣柜</td><td>把"有隔层"从一个 feature 变成 advantage</td></tr>
+  <tr><td>5</td><td>"地毯区在地板区旁边，光脚踩上去不凉"</td><td>全屋统一材质的公寓</td><td>功能分区的设计逻辑一目了然</td></tr>
+  <tr><td>6</td><td>"灯光没有放在正上方，如果放在里面会刺眼"</td><td>直射眼睛的灯光设计</td><td>细节见用心</td></tr>
+  <tr><td>7</td><td>"充电口在床头，有的公寓在桌子那边得下床去拔"</td><td>充电口远离床的设计</td><td>躺下之后的生活便利性</td></tr>
+  <tr><td>8</td><td>"这是 Epiisod 的第一个产品，但已经做到目前澳洲最好的"</td><td>澳洲其他学生公寓</td><td>品牌定位</td></tr>
+</table>
+
+<blockquote>
+  <strong>对比公式：</strong>我们的优势 + 别人常见的问题 + 这个问题为什么影响你<br>
+  不是拉踩，是帮学生做决策。学生本来就要对比，你帮他对比完，决策就做完了。
+</blockquote>
+
+<!-- ===== 五、节奏 ===== -->
+<h2>五、节奏控制：6 分钟怎么让人不划走</h2>
+
+<table>
+  <tr><th>时间段</th><th>内容</th><th>情绪曲线</th></tr>
+  <tr><td>0:00-0:10</td><td>品牌 + 定位 + 身份（"Epiisod，澳洲高端学生公寓，第一个产品"）</td><td><span class="tag tag-b">高开</span> 建立期待</td></tr>
+  <tr><td>0:10-0:45</td><td>窗外景色 + 床垫（最向往 + 最核心）</td><td><span class="tag tag-g">峰值</span> 制造 wow moment</td></tr>
+  <tr><td>0:45-3:00</td><td>床头 → 窗帘 → 书桌 → 电视 — 高频使用区</td><td>平稳展开，细节密集</td></tr>
+  <tr><td>3:00-4:30</td><td>地面 → 用餐 → 厨房 → 衣柜 — 生活功能区</td><td>节奏稍快，点到关键</td></tr>
+  <tr><td>4:30-5:30</td><td>空调/新风 + 可开窗 — 家长关注点</td><td><span class="tag tag-a">二次峰值</span> 功能性说服</td></tr>
+  <tr><td>5:30-6:00</td><td>床头上方 + 镜子 + 总结推荐</td><td><span class="tag tag-g">收束</span> 留记忆点</td></tr>
+</table>
+
+<p>关键节奏原则：<strong>最打动人的放最前面，最有说服力的放中间偏后，最温馨的收尾。</strong></p>
+
+<!-- ===== 六、可复制技法 ===== -->
+<h2>六、可直接复制的拍摄技法</h2>
+
+<table>
+  <tr><th>技法</th><th>他怎么做</th><th>为什么有效</th></tr>
+  <tr><td>身体当尺子</td><td>"身高1米78，体重190斤，坐进去很宽敞"</td><td>观众自动用自己的身体对比，比任何数字都直观</td></tr>
+  <tr><td>展示使用动作</td><td>躺床上、坐桌前、打开柜门、拉窗帘、开关灯</td><td>静态的物体变成动态的生活。想看"住进去什么样"</td></tr>
+  <tr><td>个人习惯代入</td><td>"我喜欢空气流通，晚上开着窗"</td><td>个人的真实偏好比客观描述可信十倍</td></tr>
+  <tr><td>随手测试</td><td>手机放在凹槽里不掉、床头关全屋灯</td><td>现场验证比口头承诺有力</td></tr>
+  <tr><td>承认局限后再反转</td><td>"很多高层为了安全不开窗 → 但他们加了成本开了小窗"</td><td>先共情痛点再给解决方案，说服力×2</td></tr>
+  <tr><td>品牌收束</td><td>"虽然第一个产品，但已经是目前最好的"</td><td>不以"新品牌"自谦，以"新品牌就有这水平"反向抬高</td></tr>
+  <tr><td>留纪念感</td><td>"住了两个晚上还是非常怀念，拍下来供未来同学参考"</td><td>不是推销，是分享。消解广告感。</td></tr>
+</table>
+
+<!-- ===== 七、可优化点 ===== -->
+<h2>七、可以优化的小地方</h2>
+
+<p>即使是标杆，也有改进空间。这些不是批评，是让 SOP 更完整：</p>
+
+<table>
+  <tr><th>点</th><th>现状</th><th>建议</th></tr>
+  <tr><td>声音</td><td>部分段落环境噪音较大</td><td>加一个领夹麦（几十块钱），声音质感提升显著</td></tr>
+  <tr><td>卫浴漏了</td><td>全程没讲卫生间</td><td>加一段：淋浴水压、热水、干湿分离、毛巾架——这是学生和家长都关心的</td></tr>
+  <tr><td>收尾 CTA</td><td>"供未来同学参考"——太软</td><td>加一句具体行动引导："想了解的同学可以联系我/扫码"</td></tr>
+  <tr><td>字幕</td><td>视频里无字幕/无关键词高亮</td><td>关键信息（价格、房型、面积）加字幕条，方便静音观看</td></tr>
+  <tr><td>封面</td><td>无明显的视频封面</td><td>从窗外景色那段截一帧做封面——最美的画面当门面</td></tr>
+</table>
+
+<!-- ===== 八、一句话SOP ===== -->
+<h2>八、一句话记住这个 SOP</h2>
+
+<blockquote>
+  <strong>像住客一样走进房间，像朋友一样讲给你听，像对手一样比出差距。</strong><br><br>
+  三条做到，任何公寓、任何房型、任何人拍，都能出 80 分以上的内容。
+</blockquote>
+
+<!-- ===== 九、培训检查单 ===== -->
+<h2>九、拍摄自检清单</h2>
+
+<p>拍完后对照这 10 条自检：</p>
+
+<ol style="font-size:14px; line-height:2.2; margin-left:20px;">
+  <li>观众看完知道<strong>窗外能看见什么</strong>吗？</li>
+  <li>床垫的舒适度是用<strong>对比</strong>讲出来的，不是"很舒服"三个字？</li>
+  <li>每个区域都有<strong>一个使用动作</strong>（躺、坐、开、拉、放）吗？</li>
+  <li>至少用了 <strong>3 次对比</strong>吗？</li>
+  <li>出现了<strong>"我"</strong>（第一人称）至少 5 次吗？</li>
+  <li>有没有至少一次<strong>"很多公寓都XX，但这里YY"</strong>的句式？</li>
+  <li>有没有用<strong>身体当尺子</strong>（身高、体重、两步走）？</li>
+  <li>卫浴讲了吗？（最容易漏）</li>
+  <li>收尾有<strong>具体行动引导</strong>吗？（不只是"供参考"）</li>
+  <li>整条视频看下来，<strong>最打动人的一个细节</strong>是什么？——如果答不上来，重新拍。</li>
+</ol>
+
+</div>
+</body>
+</html>
